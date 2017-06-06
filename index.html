@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!--
+PROVIDE:
+- Name of the country (country param)
+- Name of the indicator (figure param)
+
+samples:
+json_reader.html?country=NGA&figure=Refugees%20Returning%20from%20Cameroon%20in%20Past%20Weeks
+
+ISSUE: some indicators like "People in Food Crisis & Emergency"
+
+Using Styles from http://wrapbootstrap.com/preview/WB02R1485
+-->
+<link rel="stylesheet" type="text/css" href="https://agileui.com/demo/monarch/assets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://agileui.com/demo/monarch/assets/elements/tile-box.css">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+
+<script type="text/javascript">
+
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+
+  	// We will fill in our code here
+   $(document).ready(function() {
+
+		var country_ISO = getUrlParameter('country');
+		var figure_string = getUrlParameter('figure');
+
+		$.getJSON('https://raw.githubusercontent.com/reliefweb/crisis-app-data/v2/edition/world/countries/' + country_ISO + '/figures.json', function(data) {
+				$.each(data, function(i,item){
+					if (item.name == figure_string) {
+
+						$('body').append('<a href="' + item.url + '" title="' + item.name +
+						'" class="tile-box btn btn-default">' +
+						'<div class="tile-header">' +
+						item.name +
+						'<div class="float-right"><i class="glyph-icon icon-caret-up"></i>' +
+						item.source + ', ' +
+						moment(item.date).format("D MMMM YYYY") +
+						'</div>' +
+						'<div class="tile-content-wrapper">' +
+						'<i class="glyph-icon icon-tachometer"></i>' +
+						'<div class="tile-content">' +
+						item.value + '</div>');
+
+					}
+				});
+		});
+	});
+	</script>
+
+</head>
+<body>
+
+
+</body>
+</html>
