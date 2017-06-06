@@ -19,6 +19,7 @@ Using Styles from http://wrapbootstrap.com/preview/WB02R1485
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 <script type="text/javascript">
 
@@ -58,7 +59,7 @@ Using Styles from http://wrapbootstrap.com/preview/WB02R1485
 						'<div class="tile-content-wrapper">' +
 						'<i class="glyph-icon icon-tachometer"></i>' +
 						'<div class="tile-content">' +
-						item.value + '</div>');
+						numeral(item.value).format('0,0') + '</div>');
 
 					}
 				});
@@ -68,6 +69,7 @@ Using Styles from http://wrapbootstrap.com/preview/WB02R1485
 
 </head>
 <body>
+
 
 </body>
 </html>
